@@ -3,6 +3,7 @@
 #include<string>
 #include <cstdlib> /* 亂數相關函數 */
 #include <ctime>   /* 時間相關函數 */
+#include <unordered_map>
 using namespace std;
 
 
@@ -59,7 +60,6 @@ public:
     
     }
     
-    
     static void RandomSingleSort(int n) 
     {   
         /// <summary>
@@ -100,6 +100,73 @@ public:
 
     }
 
+    static vector<int> TwoSum(vector<int>& numbers, int target)
+    {
+        /// <summary>
+        /// 給一個陣列和一個常數, 找出陣列中兩個數之和等於這個常數, 輸出兩個數的位址
+        /// </summary>
+        unordered_map<int, int> hash;
+        vector<int> result;
+        for (int i = 0; i < numbers.size(); i++) {
+            int numberToFind = target - numbers[i];
+
+            //if numberToFind is found in map, return them
+            if (hash.find(numberToFind) != hash.end()) {
+                //+1 because indices are NOT zero based
+                result.push_back(hash[numberToFind]);
+                result.push_back(i);
+                cout << hash[numberToFind] << "and" << i << endl;
+                return result;
+            }
+
+            //number was not found. Put it in the map.
+            hash[numbers[i]] = i;
+        }
+        return result;
+    }
+
+    static vector<int> PrimeFactor() 
+    {
+        /// <summary>
+        /// 輸入一個數並找出他的質因數
+        /// </summary>
+        
+        long int input;
+        vector <int> result;
+
+        cin >> input;
+
+
+        if (input < 2) 
+        {
+            cout << "NULL" << endl;
+            return result;
+        }
+
+
+        int index = 2;
+        cout << "PrimeFactors:";
+
+        while (input >= index) 
+        {
+            if (input % index == 0)
+            {
+                input /= index;
+
+                result.push_back(index);
+
+                cout << index <<" ";
+
+            }
+            else
+            {
+                index++;
+            }
+
+        }
+
+        return result;
+    }
 
 
 
@@ -150,10 +217,19 @@ int main()
     srand(time(NULL));
 
     //Solution::StringLength(input);
-
+    
     //Solution::SameCharNum(input, 'p');
 
     //Solution::RandomSingleSort(10);
+
+    //vector<int> twosum = { 2,7,4,5,5,7,8 };
+    //Solution::TwoSum(twosum, 10);
+    
+    //Solution::PrimeFactor();
+
+
+
+
 
 
 
