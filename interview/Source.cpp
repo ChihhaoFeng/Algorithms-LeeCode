@@ -1,10 +1,24 @@
 #include<iostream>
 #include<vector>
 #include<string>
-#include <cstdlib> /* 亂數相關函數 */
-#include <ctime>   /* 時間相關函數 */
+#include <set>
 #include <unordered_map>
+#include <queue>
+
+#include <cstdlib> // 亂數相關函數
+#include <ctime>   // 時間相關函數
+#include <fstream> // 讀file 相關函數
+#include <sstream> // file string
 using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
+};
 
 
 class Solution {
@@ -98,6 +112,52 @@ public:
         }
 
 
+
+    }
+
+    static void RandomSet(int n) 
+    {
+
+        /// <summary>
+        /// 隨機生成n 組數據, 進行排序並刪除重複, 但刪除元素10.
+        /// </summary>
+        /// <param name="n"></param>
+
+        set<int> input;
+
+        int max = 20;
+        int min = 1;
+
+        for (int i = 0; i < n; i++)
+        {
+            int x = rand() % (max - min + 1) + min;
+
+            cout << x << endl;
+
+            input.insert(x);
+        }
+
+        cout << "-----------------------------------" << endl;
+        
+        input.insert(10);
+
+        for (set<int>::iterator it = input.begin(); it != input.end(); it++)
+        {
+            cout << *it << endl;
+        }
+
+
+
+        input.erase(input.find(10));     // 搜尋元素10,並刪除
+
+        cout << "-----------------------------------" << endl;
+
+        for (set<int>::iterator it = input.begin(); it != input.end(); it++)
+        {
+            cout << *it << endl;
+        }
+
+        
 
     }
 
@@ -327,6 +387,120 @@ public:
 
     }
 
+    static void ReadTxtFile1() 
+    {
+        ///<summary>
+        /// Given a text file file.txt, print just the n'th line of the file.
+        /// using char[]
+        ///<summary>
+
+        fstream newfile;
+
+        char buffer[256] = { 0 };
+        int n;
+        cout << "the line's: ";
+        cin >> n;
+
+        newfile.open("file.txt");
+        if (!newfile.is_open()) {
+            cout << "Failed to open file.\n";
+        }
+        else {
+            for (int i = 0 ; i < n; i++) 
+            {
+                newfile.getline(buffer, sizeof(buffer));
+            }
+
+            cout << buffer << "\n";
+            newfile.close();
+        }
+
+
+    }
+
+    static void ReadTxtFile2()
+    {
+        ///<summary>
+        /// Given a text file file.txt, print just the n'th line of the file.
+        /// using string
+        ///<summary>
+
+        fstream newfile;
+        string str;
+        stringstream ss;
+
+        vector<string> output;
+
+        newfile.open("file.txt");
+
+        int n;
+        cout << "the line's: ";
+        cin >> n;
+
+        if (!newfile.is_open()) {
+            cout << "Failed to open file.\n";
+        }
+        else {
+
+            ss << newfile.rdbuf();  // newfile.rdbuf() 串流到 stringstream ss
+
+            string str(ss.str());  
+
+            output = split(str, "\n");
+
+            cout << output[n-1] << endl;
+
+            newfile.close();
+        }
+
+    }
+
+    /*****Tree function*******/
+
+    static TreeNode* CreateTree(vector<int> tree)   // 建立二叉樹
+    {
+        TreeNode* root = NULL;
+
+        for (int i = 0; i < tree.size(); i++) 
+        {
+            root = BuildNode(root, tree[i]);
+        }
+
+        return root;
+    }
+
+    static void LevelOrder(TreeNode* root) //將樹結構一層一層印出
+    {
+        queue<TreeNode*> list;
+
+        list.push(root);
+
+        while (!list.empty()) 
+        {
+            TreeNode* temp = list.front();
+
+            list.pop();
+
+            cout << temp->val << ", ";
+
+            if (temp->left) list.push(temp->left);
+            if (temp->right) list.push(temp->right);
+        }
+
+    }
+
+    static void WhetherHeightBalance(TreeNode* root) //檢查是否為高度平衡樹
+    {
+        if (BalanceTree(root)) 
+        {
+            cout << "\nIt is a balance tree" << endl;
+        }
+        else 
+        {
+            cout << "\nIt is not a balance tree" << endl;
+        }
+    }
+
 
 
 private:
@@ -398,6 +572,75 @@ private:
         }
         return result;
     }
+
+    /*Tree private function*/
+    static TreeNode* BuildNode(TreeNode* root, int val) 
+    {
+        if (root == NULL) 
+        {
+            root = new TreeNode();
+            root->val = val;
+            return root;
+        }
+        if (val < root->val) 
+        {
+            root->left = BuildNode(root->left, val);
+        }
+        else 
+        {
+            root->right = BuildNode(root->right, val);
+        }
+
+        return root;
+
+    }
+
+    static bool BalanceTree(TreeNode* root)   
+    {
+        if (!root)
+        {
+            return true;
+        }
+
+        int righth, lefth;
+
+        righth = Height(root->right, 0);
+
+
+        lefth = Height(root->left, 0);
+
+
+
+        if (abs(righth - lefth) > 1)
+        {
+            return false;
+        }
+        else
+        {
+            return BalanceTree(root->right) & BalanceTree(root->left);
+        }
+
+    }
+
+    static int Height(TreeNode* root, int height)
+    {
+        int righth, lefth;
+
+        if (!root)
+        {
+            return height;
+        }
+
+
+        height++;
+
+        righth = Height(root->right, height);
+        lefth = Height(root->left, height);
+
+        return max(righth, lefth);
+
+    }
+
 };
 
 
@@ -406,7 +649,10 @@ int main()
     string input = "people4ar6es5go4ophpfp4pdpph4fdd";
     string sen = "   observe dont you     but see You     ";
 
-   
+    vector<int> tree = { 3, 9, 20, 15, 7 };
+    vector<int> tree2 = { 9, 7, 15, 3, 20 };
+    TreeNode* root = NULL;
+
     vector<char> output;
     srand(time(NULL));
 
@@ -415,6 +661,8 @@ int main()
     //Solution::SameCharNum(input, 'p');
 
     //Solution::RandomSingleSort(10);
+
+    //Solution::RandomSet(10);
 
     vector<int> nums = { 2,7,4,5,5,7,8 };
     //Solution::TwoSum(nums, 10);
@@ -427,6 +675,20 @@ int main()
     //Solution::ReverseSentence(sen);
 
     //Solution::Password();
+
+    //Solution::ReadTxtFile1();             //char[]
+
+    //Solution::ReadTxtFile2();             //string
+
+    /////*Tree structure problem*//////
+
+    root = Solution::CreateTree(tree);
+
+    Solution::LevelOrder(root);
+
+    Solution::WhetherHeightBalance(root);
+    
+
 
     return 0;
 }
