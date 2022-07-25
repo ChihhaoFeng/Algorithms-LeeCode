@@ -1,8 +1,8 @@
 ﻿  Source.cpp
-C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(171,27): warning C4018: '<': signed/unsigned 不相符
-C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(325,27): warning C4018: '<': signed/unsigned 不相符
-C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(367,31): warning C4018: '<': signed/unsigned 不相符
-C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(464,27): warning C4018: '<': signed/unsigned 不相符
-C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(523,27): warning C4018: '<': signed/unsigned 不相符
-C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(657,15): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(175,27): warning C4018: '<': signed/unsigned 不相符
+C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(329,27): warning C4018: '<': signed/unsigned 不相符
+C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(371,31): warning C4018: '<': signed/unsigned 不相符
+C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(482,27): warning C4018: '<': signed/unsigned 不相符
+C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(572,27): warning C4018: '<': signed/unsigned 不相符
+C:\Users\USER\Desktop\interview\coding\interview\interview\Source.cpp(710,15): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
   interview.vcxproj -> C:\Users\USER\Desktop\interview\coding\interview\Debug\interview.exe

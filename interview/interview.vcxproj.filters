@@ -18,5 +18,13 @@
     <ClCompile Include="Source.cpp">
       <Filter>資源檔</Filter>
     </ClCompile>
+    <ClCompile Include="DataStore.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataStore.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

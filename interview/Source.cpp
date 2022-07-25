@@ -9,7 +9,12 @@
 #include <ctime>   // 時間相關函數
 #include <fstream> // 讀file 相關函數
 #include <sstream> // file string
+
+#include "DataStore.h"
+
+
 using namespace std;
+
 
 struct TreeNode {
     int val;
@@ -19,7 +24,6 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
-
 
 class Solution {
 public: 
@@ -455,51 +459,6 @@ public:
 
     }
 
-    /*****Tree function*******/
-
-    static TreeNode* CreateTree(vector<int> tree)   // 建立二叉樹
-    {
-        TreeNode* root = NULL;
-
-        for (int i = 0; i < tree.size(); i++) 
-        {
-            root = BuildNode(root, tree[i]);
-        }
-
-        return root;
-    }
-
-    static void LevelOrder(TreeNode* root) //將樹結構一層一層印出
-    {
-        queue<TreeNode*> list;
-
-        list.push(root);
-
-        while (!list.empty()) 
-        {
-            TreeNode* temp = list.front();
-
-            list.pop();
-
-            cout << temp->val << ", ";
-
-            if (temp->left) list.push(temp->left);
-            if (temp->right) list.push(temp->right);
-        }
-
-    }
-
-    static void WhetherHeightBalance(TreeNode* root) //檢查是否為高度平衡樹
-    {
-        if (BalanceTree(root)) 
-        {
-            cout << "\nIt is a balance tree" << endl;
-        }
-        else 
-        {
-            cout << "\nIt is not a balance tree" << endl;
-        }
-    }
 
 
 
@@ -572,21 +531,116 @@ private:
         }
         return result;
     }
+};
 
-    /*Tree private function*/
-    static TreeNode* BuildNode(TreeNode* root, int val) 
+class Data //构造函数体赋值
+{
+public:
+    Data(int year = 2000, int month = 4, int day = 28)  // 內建值構造函數
     {
-        if (root == NULL) 
+        _year = year;
+        _month = month;
+        _day = day;
+    }
+
+    void InitData(int year, int month, int day)   // 初始化
+    {
+        _year = year;
+        _month = month;
+        _day = day;
+    }
+
+    void PrintData() 
+    {
+        cout << _year << "/" << _month << "/" << _day << endl;
+    }
+
+private:
+    int _year;
+    int _month;
+    int _day;
+};
+
+class Tree
+{
+public:
+
+    static TreeNode* CreateTree(vector<int> tree)   // 建立二叉樹
+    {
+        TreeNode* root = NULL;
+
+        for (int i = 0; i < tree.size(); i++)
+        {
+            root = BuildNode(root, tree[i]);
+        }
+
+        return root;
+    }
+
+    static void LevelOrder(TreeNode* root) //將樹結構一層一層印出
+    {
+        queue<TreeNode*> list;
+
+        list.push(root);
+
+        while (!list.empty())
+        {
+            TreeNode* temp = list.front();
+
+            list.pop();
+
+            cout << temp->val << ", ";
+
+            if (temp->left) list.push(temp->left);
+            if (temp->right) list.push(temp->right);
+        }
+
+    }
+
+    static void WhetherHeightBalance(TreeNode* root) //檢查是否為高度平衡樹
+    {
+        if (BalanceTree(root))
+        {
+            cout << "\nIt is a balance tree" << endl;
+        }
+        else
+        {
+            cout << "\nIt is not a balance tree" << endl;
+        }
+    }
+    static void FreeTree(TreeNode* root)
+    {
+        queue<TreeNode*> list;
+        list.push(root);
+        while (!list.empty())
+        {
+            TreeNode* temp = list.front();
+
+            list.pop();
+
+            if (temp->left) list.push(temp->left);
+            if (temp->right) list.push(temp->right);
+            
+            free(temp);
+        }
+        cout << "Free whole Tree" << endl;
+
+    }
+
+private:
+    static TreeNode* BuildNode(TreeNode* root, int val)
+    {
+        if (root == NULL)
         {
             root = new TreeNode();
             root->val = val;
             return root;
         }
-        if (val < root->val) 
+        if (val < root->val)
         {
             root->left = BuildNode(root->left, val);
         }
-        else 
+        else
         {
             root->right = BuildNode(root->right, val);
         }
@@ -595,7 +649,7 @@ private:
 
     }
 
-    static bool BalanceTree(TreeNode* root)   
+    static bool BalanceTree(TreeNode* root)
     {
         if (!root)
         {
@@ -640,7 +694,6 @@ private:
         return max(righth, lefth);
 
     }
-
 };
 
 
@@ -657,7 +710,7 @@ int main()
     srand(time(NULL));
 
     //Solution::StringLength(input);
-    
+
     //Solution::SameCharNum(input, 'p');
 
     //Solution::RandomSingleSort(10);
@@ -667,9 +720,8 @@ int main()
     vector<int> nums = { 2,7,4,5,5,7,8 };
     //Solution::TwoSum(nums, 10);
 
-
     //Solution::Reverse(nums);
-    
+
     //Solution::PrimeFactor();
 
     //Solution::ReverseSentence(sen);
@@ -680,14 +732,48 @@ int main()
 
     //Solution::ReadTxtFile2();             //string
 
+
     /////*Tree structure problem*//////
 
-    root = Solution::CreateTree(tree);
+    //root = Tree::CreateTree(tree);
 
-    Solution::LevelOrder(root);
+    //Tree::LevelOrder(root);
 
-    Solution::WhetherHeightBalance(root);
+    //Tree::WhetherHeightBalance(root);
+     
+    //Tree::FreeTree(root);
+
+    /////////////////////////////////////4
+
+
+    //Data d1;
+    //d1.PrintData();
+    //d1.InitData(1996,2,24);
+    //d1.PrintData();
+
+
+    /*  // DataStore 链接式数据 构造函数 & 析构函数
+    DataStore ds;
+
+    Student s;
+    s.id = 24;
+    strcpy_s(s.name, "Daniel");
+    ds.Add(&s);
+
+    s.id = 28;
+    strcpy_s(s.name, "Geneieve");
+    ds.Add(&s);
+
+    s.id = 16;
+    strcpy_s(s.name, "Eren");
+    ds.Add(&s);
     
+    ds.Print();
+    */
+
+
+
+
 
 
     return 0;
