@@ -1,5 +1,5 @@
 #pragma once
-#include<vector>
+using namespace std;
 
 struct TreeNode {
     int val;
@@ -22,7 +22,12 @@ public:
     
 
     void WhetherHeightBalance(TreeNode* root); //檢查是否為高度平衡樹
-    
+
+    void FreeTree(TreeNode* root);     // 釋放內存
+
+    vector<int> preorderTraversal(TreeNode* root);
+
+    vector<int> postorderTraversal(TreeNode* root);
 
 private:
     TreeNode* BuildNode(TreeNode* root, int val);
@@ -33,4 +38,7 @@ private:
 
     int Height(TreeNode* root, int height);
     
+    void _preorderTraversal(TreeNode* root, vector<int>& result);
+
+    void _postorderTraversal(TreeNode* root, vector<int>& result);
 };

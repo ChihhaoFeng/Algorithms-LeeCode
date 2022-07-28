@@ -21,9 +21,21 @@
     <ClCompile Include="DataStore.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStore.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

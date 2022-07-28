@@ -51,6 +51,65 @@ void Tree::WhetherHeightBalance(TreeNode* root) //檢查是否為高度平衡樹
     }
 }
 
+void Tree::FreeTree(TreeNode* root)
+{
+    queue<TreeNode*> list;
+    list.push(root);
+    while (!list.empty())
+    {
+        TreeNode* temp = list.front();
+
+        list.pop();
+
+        if (temp->left) list.push(temp->left);
+        if (temp->right) list.push(temp->right);
+
+        free(temp);
+    }
+    cout << "Free whole Tree" << endl;
+
+}
+
+vector<int> Tree::preorderTraversal(TreeNode* root) {     //前序遍历
+
+    vector<int> result = {};
+
+    if (!root)
+    {
+        return result;
+    }
+    cout << "preorderTraversal: ";
+    _preorderTraversal(root, result);
+
+    cout << endl;
+
+    return result;
+}
+
+vector<int> Tree::postorderTraversal(TreeNode* root) {   //後序遍历
+
+    vector<int> result = {};
+
+    if (!root)
+    {
+        return result;
+    }
+    cout << "postorderTraversal: ";
+
+    _postorderTraversal(root, result);
+
+    cout << endl;
+
+    return result;
+}
+
+
+
+
+/// <summary>
+/// private
+/// </summary>
+
 TreeNode* Tree::BuildNode(TreeNode* root, int val)
 {
     if (root == NULL)
@@ -116,4 +175,25 @@ int Tree::Height(TreeNode* root, int height)
 
     return max(righth, lefth);
 
+}
+
+void Tree::_preorderTraversal(TreeNode* root, vector<int>& result)
+{
+    result.push_back(root->val);
+    cout << root->val << ",";
+
+    if (root->left) _preorderTraversal(root->left, result);
+    if (root->right) _preorderTraversal(root->right, result);
+}
+
+void Tree::_postorderTraversal(TreeNode* root, vector<int>& result)
+{
+
+
+
+    if (root->left) _postorderTraversal(root->left, result);
+    if (root->right) _postorderTraversal(root->right, result);
+
+    result.push_back(root->val);
+    cout << root->val << ",";
 }
